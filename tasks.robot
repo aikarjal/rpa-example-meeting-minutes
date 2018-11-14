@@ -9,4 +9,5 @@ Hae uusin kaupunginhallituksen pöytäkirja
     Avaa pöytäkirja-arkisto
     Avaa kaupunginhallituksen pöytäkirjat
     Avaa uusin pöytäkirja
+    Lataa sivun sisältö
     Ota näyttökuva
