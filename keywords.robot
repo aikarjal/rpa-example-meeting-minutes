@@ -44,7 +44,7 @@ Tarkista että dokumentti on pdf
 
 Poikkeuskäsittely
     [Arguments]  ${message}
-    Fatal error  ${message}
+    Pass Execution  ${message}
 
 Lataa pdf asiakirja
     [Arguments]  ${url}
@@ -58,7 +58,8 @@ Lataa pdf asiakirja
 
 Tallenna tiedosto
     [Arguments]  ${resp}  ${document_name}
-    Create Binary File  .${/}${document_name}  ${resp.content}
+    Create Directory  .${/}pdf
+    Create Binary File  .${/}pdf${/}${document_name}  ${resp.content}
 
 Odota tekstiä
     [Arguments]  ${teksti}
