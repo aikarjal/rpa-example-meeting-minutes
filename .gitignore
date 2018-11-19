@@ -1,3 +1,5 @@
 output/
 venv/
 pdf/
+.vscode
+*.pyc

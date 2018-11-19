@@ -1,9 +1,8 @@
 *** Settings ***
 Library     SeleniumLibrary
-Library     RequestsLibrary
+Library     KeywordLibrary
 Library     String
-Library     OperatingSystem
-Resource    variables.robot
+Resource    config.robot
 
 *** Keywords ***
 Do Suite Setup
@@ -48,18 +47,8 @@ Poikkeuskäsittely
 
 Lataa pdf asiakirja
     [Arguments]  ${url}
-    @{substrings}=  Split String From Right  ${url}  /  1
-    ${base_url}=  Set Variable  @{substrings}[0]
-    ${document_name}=  Set Variable  @{substrings}[1]
-    Create Session  session  ${base_url}
-    ${resp}=  Get Request  session  /${document_name}
-    Run Keyword If  ${resp.status_code} == 200  Tallenna tiedosto  ${resp}  ${document_name}
-    ...  ELSE  Poikkeuskäsittely  Asiakirjan ${document_name} lataaminen epäonnistui
-
-Tallenna tiedosto
-    [Arguments]  ${resp}  ${document_name}
-    Create Directory  .${/}pdf
-    Create Binary File  .${/}pdf${/}${document_name}  ${resp.content}
+    ${resp}=  KeywordLibrary.lataa_asiakirja  ${url}
+    Run Keyword If  ${resp} == False  Poikkeuskäsittely  Asiakirjan ${url} lataaminen epäonnistui
 
 Odota tekstiä
     [Arguments]  ${teksti}
@@ -68,3 +57,6 @@ Odota tekstiä
 Vaihda välilehti
     @{list}=  Get Window Handles
     Select Window  @{list}[1]
+
+Ota näyttökuva
+    Capture page screenshot
