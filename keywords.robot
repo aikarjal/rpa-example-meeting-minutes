@@ -39,7 +39,7 @@ Lataa sivun sisältö
 
 Tarkista että dokumentti on pdf
     [Arguments]  ${url}
-    ${ret}=  Run Keyword And Return Status  Should Match Regexp  ${url}  (?i)pdf
+    ${ret}=  Run Keyword And Return Status  Should Match Regexp  ${url}  (?i)pdf$
     [Return]  ${ret}
 
 Poikkeuskäsittely
@@ -68,6 +68,3 @@ Odota tekstiä
 Vaihda välilehti
     @{list}=  Get Window Handles
     Select Window  @{list}[1]
-
-Ota näyttökuva
-    Capture Page Screenshot
