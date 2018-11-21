@@ -14,7 +14,7 @@ Do Suite Teardown
 
 Avaa selain
     [Arguments]  ${url}
-    Open browser  ${url}  browser=chrome
+    Open browser  ${url}  browser=${BROWSER}
 
 Avaa pöytäkirja-arkisto
     Avaa selain  ${ARKISTO_URL}
