@@ -33,9 +33,6 @@ timestamps {
 							currentBuild.result = "UNSTABLE"
 						}
 					}
-					if (currentBuild.result == "SUCCESS") {
-						createPackageAndArchive('robot.zip', 'tasks/*.robot build_info.txt')
-					}
 				} catch (e) {
 					//emailext body: '$DEFAULT_CONTENT', subject: "${repoName} Build FAILED in ${branch}", to: "${author}, cc: ${repoOwner}"
 					error "${e}"
