@@ -1,8 +1,8 @@
 #!/bin/bash
 if [[ $# -eq 0 ]] ; then
-    export browser = chrome
+    export browser=chrome
 else
-    export browser = $1
+    export browser=$1
 fi
 
 python3 -m venv ./venv
