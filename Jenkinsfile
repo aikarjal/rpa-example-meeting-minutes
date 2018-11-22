@@ -20,7 +20,7 @@ timestamps {
 					ws("${shortWs}/${JOB_NAME}") {
 						checkoutAndReadGitInfo()
 						sh """
-						./env_setup.sh
+						./env_setup.sh ${params.BROWSER_FOR_ROBOT}
 						Xvfb :89 -ac &
 						export DISPLAY=:89
 						./run.sh "--variable BROWSER:${params.BROWSER_FOR_ROBOT}"||true"""
