@@ -19,11 +19,7 @@ timestamps {
 					shortWs  = "${WORKSPACE}" - cutWs
 					ws("${shortWs}/${JOB_NAME}") {
 						checkoutAndReadGitInfo()
-						sh """
-						./env_setup.sh ${params.BROWSER_FOR_ROBOT}
-						Xvfb :89 -ac &
-						export DISPLAY=:89
-						./run.sh "--variable BROWSER:${params.BROWSER_FOR_ROBOT}"||true"""
+						setupXvfbAndRunTests("${params.BROWSER_FOR_ROBOT}")
 						if (fileExists('output/output.xml')) {
 							publishRobotResults("output", "output.xml", "log.html", "report.html", true)
 						} else {
@@ -75,6 +71,15 @@ def runTests(filePath, extraArgs) {
 	def robotCommand = "robot ${extraArgs} ${filePath}||true"
         if (isUnix()) sh "${robotCommand}"
         else bat "${robotCommand}"
+}
+
+def setupXvfbAndRunTests(browser) {
+	currentBuild.displayName += " - ${browser}"
+	sh """
+		./env_setup.sh ${browser}
+		Xvfb :89 -ac &
+		export DISPLAY=:89
+		./run.sh "--variable BROWSER:${browser}"||true"""
 }
 
 def publishRobotResults(outputFolder, robotOutput, robotLog, robotReport, fastFail) {
