@@ -1,4 +1,4 @@
-robotframework==3.1b1
+robotframework==3.1
 robotframework-seleniumlibrary
 webdrivermanager
 requests
