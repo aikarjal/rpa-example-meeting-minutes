@@ -13,7 +13,7 @@ timestamps {
 
 			repoOwner = "jyri.ilama@siili.com"
 
-			node('azure-ubuntu-1') {
+			node('ubuntu') {
 				try {
 					cutWs = "${WORKSPACE}".split('/')[-1]
 					shortWs  = "${WORKSPACE}" - cutWs
