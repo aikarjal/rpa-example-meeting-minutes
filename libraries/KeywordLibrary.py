@@ -6,7 +6,7 @@ class KeywordLibrary(object):
     def __init__(self):
         pass
 
-    def lataa_asiakirja(self, url):
+    def download_document(self, url):
         pdf_name = url.rsplit('/', 1)[1]
         file_path = Path('./pdf')
         if not file_path.exists():

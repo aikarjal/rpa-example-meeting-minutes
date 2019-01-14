@@ -16,47 +16,46 @@ Avaa selain
     [Arguments]  ${url}
     Open browser  ${url}  browser=${BROWSER}
 
-Avaa pöytäkirja-arkisto
+Open minutes archive
     Avaa selain  ${ARKISTO_URL}
-    Odota tekstiä  Toimielimet
+    Wait for text to appear  Toimielimet
 
-Avaa kaupunginhallituksen pöytäkirjat
-    Click element  (//a[.='Kaupunginhallitus'])[3]
+Goto municipality minutes
+    Click element  (//a[.='Kaupunginhallitus'])[2]
     Wait until page contains element  link:Pöytäkirja
+    # TODO find minutes based on year
 
-Avaa uusin pöytäkirja
+Open the lates minutes
     Click link  Pöytäkirja
     Wait until page contains element  class:lnk
     Click element  class:lnk
-    Vaihda välilehti
+    Change to another tab in browser
 
-Lataa sivun sisältö
+Download page content
     ${url}=  Get Location
-    ${ret}=  Tarkista että dokumentti on pdf  ${url}
-    Run Keyword If  ${ret}==True  Lataa pdf asiakirja  ${url}
-    ...  ELSE  Poikkeuskäsittely  Ei voitu lukea pdf-tiedostoa kohteesta ${url}
+    ${ret}=  Verify that the document is a PDF  ${url}
+    Run Keyword If  ${ret}==True  Download PDF document  ${url}
+    ...  ELSE  Handle exception  Cannot read PDF file from  ${url}
 
-Tarkista että dokumentti on pdf
+Verify that the document is a PDF
     [Arguments]  ${url}
     ${ret}=  Run Keyword And Return Status  Should Match Regexp  ${url}  (?i)pdf$
     [Return]  ${ret}
 
-Poikkeuskäsittely
+Handle exception
     [Arguments]  ${message}
     Pass Execution  ${message}
 
-Lataa pdf asiakirja
+Download PDF document
     [Arguments]  ${url}
-    ${resp}=  KeywordLibrary.lataa_asiakirja  ${url}
-    Run Keyword If  ${resp} == False  Poikkeuskäsittely  Asiakirjan ${url} lataaminen epäonnistui
+    ${resp}=  KeywordLibrary.download_document  ${url}
+    Run Keyword If  ${resp} == False  Handle exception  Failed to download document ${url}
 
-Odota tekstiä
+Wait for text to appear
     [Arguments]  ${teksti}
     Wait Until Page Contains  ${teksti}
 
-Vaihda välilehti
+Change to another tab in browser
     @{list}=  Get Window Handles
     Select Window  @{list}[1]
 
-Ota näyttökuva
-    Capture page screenshot
