@@ -8,7 +8,7 @@ class KeywordLibrary(object):
 
     def download_document(self, url):
         pdf_name = url.rsplit('/', 1)[1]
-        file_path = Path('./pdf')
+        file_path = Path('./output')
         if not file_path.exists():
             os.makedirs(file_path)
 
