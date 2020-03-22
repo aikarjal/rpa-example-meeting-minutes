@@ -21,7 +21,7 @@ Open minutes archive
     Wait for text to appear  Toimielimet
 
 Goto municipality minutes
-    Click element  (//a[.='Kaupunginhallitus'])[2]
+    Click element  (//a[.='Kaupunginhallitus'])[3]
     Wait until page contains element  link:Pöytäkirja
     # TODO find minutes based on year
 
